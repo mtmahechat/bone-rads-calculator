@@ -11,7 +11,7 @@ st.title("🦴 Sistema ACR Bone-RADS")
 st.caption("Estratificación de riesgo de lesiones óseas en radiografía convencional (Caracciolo et al., 2023)")
 
 # Pestañas principales de la App
-tab_calc, tab_guia = st.tabs(["🧮 Calculadora Bone-RADS", "📖 Guía: Márgenes y Periostio"])
+tab_calc, tab_guia = st.tabs(["🧮 Calculadora Bone-RADS", "📖 Guía Visual (Figuras 1-5)"])
 
 # ==============================================================================
 # PESTAÑA 1: CALCULADORA INTERACTIVA
@@ -127,72 +127,62 @@ with tab_calc:
 
 
 # ==============================================================================
-# PESTAÑA 2: GUÍA ORIENTADORA (MÁRGENES Y REACCIÓN PERIÓSTICA)
+# PESTAÑA 2: GUÍA VISUAL ORIENTADORA (FIGURAS 1 A 5)
 # ==============================================================================
 with tab_guia:
     st.header("📖 Guía de Orientación Diagnóstica")
-    st.write("Consulte los criterios morfológicos del sistema modificado de **Lodwick-Madewell** y los patrones de **reacción perióstica** para realizar una clasificación certera.")
+    st.write("Consulte los criterios morfológicos del consenso ACR para caracterizar los márgenes y la reacción perióstica.")
 
     st.markdown("---")
 
-    # SECCIÓN MÁRGENES
-    st.subheader("1. Clasificación de Márgenes (Lodwick-Madewell Modificado)")
+    # FIGURA 1: MÁRGENES
+    st.subheader("1. Márgenes de la Lesión (Lodwick-Madewell Modificado)")
+    try:
+        st.image("assets/figura1.png", caption="Figura 1: Sistema modificado de Lodwick-Madewell para la gradación de márgenes (IA, IB, II, IIIA, IIIB, IIIC).", use_container_width=True)
+    except Exception:
+        st.warning("⚠️ *Cargue 'figura1.png' en la carpeta 'assets/' para ver el diagrama.*")
+
+    with st.expander("📌 **Detalles de Clasificación de Márgenes**"):
+        st.write("""
+        * **IA (1 Pto):** Geográfico, bien definido con borde esclerótico periférico.
+        * **IB (3 Ptos):** Geográfico, bien definido sin borde esclerótico.
+        * **II (5 Ptos):** Geográfico, mal definido / zona amplia de transición.
+        * **IIIA-C (7 Ptos):** No geográfico, carcomido/permeativo o con cambio activo de comportamiento.
+        """)
+
+    st.markdown("---")
+
+    # FIGURAS 2 Y 3: REMODELACIÓN Y PERIOSTIO
+    st.subheader("2. Remodelación Ósea y Reacción Perióstica Inicial")
     
-    with st.expander("📌 **Grado IA: Geográfico con borde esclerótico (1 Ppto)**", expanded=True):
-        st.write("""
-        - **Características:** Lesión lítica con límites perfectamente definidos por un halo denso y esclerótico de hueso reactivo (zona de transición extremadamente estrecha).
-        - **Significado Biológico:** Crecimiento muy lento e indolente que le permite al hueso huésped formar una barrera ósea madura.
-        - **Ejemplos Típicos:** Fibroma no osificante (NOF), Quiste óseo simple, Encondroma maduro.
-        """)
-
-    with st.expander("📌 **Grado IB: Geográfico sin borde esclerótico (3 Ptos)**"):
-        st.write("""
-        - **Características:** Lesión lítica nítidamente demarcada, con borde cortante, pero **sin halo de esclerosis periférica**.
-        - **Significado Biológico:** Lesión de crecimiento lento o moderado; el hueso no llega a formar un halo esclerótico denso pero mantiene delimitado el frente del tumor.
-        - **Ejemplos Típicos:** Tumor de células gigantes, Quiste óseo aneurismático, Encondroma sin pared esclerótica.
-        """)
-
-    with st.expander("📌 **Grado II: Geográfico mal definido / Zona amplia de transición (5 Ptos)**"):
-        st.write("""
-        - **Características:** Lesión geográfica cuyos bordes no son nítidos; presenta una zona de transición ancha donde no es posible precisar exactamente el límite entre hueso sano y enfermo.
-        - **Significado Biológico:** Crecimiento localmente agresivo o intermedio.
-        - **Ejemplos Típicos:** Condrosarcoma de bajo grado, Fibroma desmoplásico, Osteoblastoma agresivo, Mieloma.
-        """)
-
-    with st.expander("📌 **Grado IIIA-C: No Geográfico / Permeativo / Cambiante (7 Ptos)**"):
-        st.write("""
-        - **IIIA (Cambio Activo):** Lesión previamente estable bien definida que desarrolla una zona permeable o mal definida (sugiere transformación maligna).
-        - **IIIB (Carcomido / Permeativo):** Múltiples áreas líticas diminutas, agujeradas o permeantes que coalescen, con destrucción cortical masiva.
-        - **IIIC (Oculto / Incalculable):** Avance tumoral medular rápido por el canal sin destrucción ósea visible inicial en radiografía.
-        - **Ejemplos Típicos:** Osteosarcoma, Sarcoma de Ewing, Metástasis destructivas, Linfoma óseo.
-        """)
+    col_f2, col_f3 = st.columns(2)
+    with col_f2:
+        try:
+            st.image("assets/figura2.png", caption="Figura 2: Patrones no agresivos de remodelación cortical (a: lisa, b: tabicada, c: lobulada).", use_container_width=True)
+        except Exception:
+            st.info("💡 *Cargue 'figura2.png'*")
+    with col_f3:
+        try:
+            st.image("assets/figura3.png", caption="Figura 3: Patrones con corteza intacta (a: capa sólida, b: Triángulo de Codman, c: lamelar/cebolla).", use_container_width=True)
+        except Exception:
+            st.info("💡 *Cargue 'figura3.png'*")
 
     st.markdown("---")
 
-    # SECCIÓN REACCIÓN PERIÓSTICA
-    st.subheader("2. Patrones de Reacción Perióstica")
-
-    col_no_agr, col_agr = st.columns(2)
-
-    with col_no_agr:
-        st.markdown("#### **No Agresiva (2 Ptos)**")
-        st.write("""
-        Indica procesos crónicos, indolentes o lentos donde el periostio tiene tiempo de formar hueso maduro:
-        
-        * **Capa Sólida / Continua:** Engrosamiento cortical corticalizado y homogéneo adyacente a la lesión.
-        * **Remodelación / Neocorteza:** Expansión suave de la cortical donde el periostio forma una caparazón cortical delgada pero entera.
-        """)
-
-    with col_agr:
-        st.markdown("#### **Agresiva (4 Ptos)**")
-        st.write("""
-        Indica avance tumoral rápido donde el ritmo del tumor sobrepasa la capacidad de reparación del periostio:
-        
-        * **Lamelar / Capas de cebolla:** Múltiples capas concéntricas interrumpidas (ej. Sarcoma de Ewing).
-        * **Espiculada Paralela ("En cepillo" / *Hair-on-end*):** Espículas perpendiculares al eje cortical.
-        * **Espiculada Divergente ("Sol Naciente" / *Sunburst*):** Espículas en abanico radiating hacia partes blandas.
-        * **Triángulo de Codman:** Levantamiento agudo del periostio con rotura central por la masa tumoral.
-        """)
+    # FIGURAS 4 Y 5: PATRONES AGRESIVOS Y COMPLEJOS
+    st.subheader("3. Patrones Periósticos Agresivos y Mixtos")
+    
+    col_f4, col_f5 = st.columns(2)
+    with col_f4:
+        try:
+            st.image("assets/figura4.png", caption="Figura 4: Patrones agresivos (a: espiculado paralelo / hair-on-end, b: divergente / sunburst).", use_container_width=True)
+        except Exception:
+            st.info("💡 *Cargue 'figura4.png'*")
+    with col_f5:
+        try:
+            st.image("assets/figura5.png", caption="Figura 5: Patrones mixtos/complejos (a: espiculado con Codman, b: lamelar y paralelo).", use_container_width=True)
+        except Exception:
+            st.info("💡 *Cargue 'figura5.png'*")
 
 # ==============================================================================
 # FOOTER Y REFERENCIA BIBLIOGRÁFICA
